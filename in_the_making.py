@@ -20,18 +20,17 @@ class my_o_directory:
     def imp_data(self):
         #最後に↓のファイルパスを変更する予定
         image_file_path = './data/simulated_rehabilitation_patient_data.csv'
-        def open_send_data(image_file_path_v):
+        def open_rehabilitation_data(image_file_path_v):
             with codecs.open(image_file_path_v, "r", "Shift-JIS", "ignore") as file:
                     dfpp = pd.read_table(file, delimiter=",")    
-            dfpp_m_send = dfpp
-            return dfpp_m_send
+            dfpp_m_rehabilitation = dfpp
+            return dfpp_m_rehabilitation
                
-        hituyoudo1=open_send_data(image_file_path)
-        df1_2_o = hituyoudo1
-        return df1_2_o
+        rehabilitation1=open_rehabilitation_data(image_file_path)
+        return rehabilitation1
 
 #define the value of self here
-u = my_o_directory("./20210818Essay_output/")
+u = my_o_directory("./output/")
 u.print_name()
 u.pass_out_new()
 Read_data=u.imp_data()
@@ -45,6 +44,7 @@ all_data_out=all_data_o.fillna(0)
 all_data_out.describe()
 merge_data=all_data_out.rename(columns={"F1":"target"})
 
+#Separate test data from train data
 def make_test_vol_train(merge_data):
     # 目的変数を分離
     X = merge_data.drop("target",axis=1).values
@@ -121,6 +121,7 @@ y_x_variable_flg=df_b2.drop(["target"], axis=1)
 y_x_variable=y_x_variable_flg.rename(columns={'flg': 'target'})
 y_x_variable
 
+#Predicted by pycaret
 from pycaret.classification import *
 clf1 = setup(y_x_variable, target ='target',train_size = 0.86,data_split_shuffle=False,fold=10,silent=True,session_id=42)
 best_model = compare_models()
