@@ -122,6 +122,7 @@ y_x_variable=y_x_variable_flg.rename(columns={'flg': 'target'})
 y_x_variable
 
 #Predicted by pycaret
+#Predict F1 at discharge as an objective variable
 from pycaret.classification import *
 clf1 = setup(y_x_variable, target ='target',train_size = 0.86,data_split_shuffle=False,fold=10,silent=True,session_id=42)
 best_model = compare_models()
