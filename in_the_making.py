@@ -18,7 +18,6 @@ class my_o_directory:
             os.mkdir(data_dir)
         print(u.pass_o()+"Folder created")
     def imp_data(self):
-        #最後に↓のファイルパスを変更する予定
         image_file_path = './simulated_rehabilitation_patient_data.csv'
         def open_rehabilitation_data(image_file_path_v):
             with codecs.open(image_file_path_v, "r", "Shift-JIS", "ignore") as file:
