@@ -45,7 +45,7 @@ merge_data=all_data_out.rename(columns={"F1":"target"})
 
 #Separate test data from train data
 def make_test_vol_train(merge_data):
-    # 目的変数を分離
+    # Isolate the objective variable
     X = merge_data.drop("target",axis=1).values
     y = merge_data["target"].values
     columns_name = merge_data.drop("target",axis=1).columns
