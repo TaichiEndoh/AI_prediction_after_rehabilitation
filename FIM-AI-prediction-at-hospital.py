@@ -47,6 +47,7 @@ all_data_out.describe()
 merge_data=all_data_out.rename(columns={"F1":"target"})
 
 #Separate test data from train data
+#If you want to change the percentage of test data or random_state, you can adjust the function here
 def make_test_vol_train(merge_data):
     # Isolate the objective variable
     X = merge_data.drop("target",axis=1).values
