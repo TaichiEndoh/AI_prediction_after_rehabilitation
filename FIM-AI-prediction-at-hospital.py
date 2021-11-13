@@ -32,15 +32,18 @@ class my_o_directory:
 u = my_o_directory("./output/")
 u.print_name()
 u.pass_out_new()
+#Importing CSV
 Read_data=u.imp_data()
 
 all_data_p1=Read_data
+#Dummy gender conversion
 all_data_after_get_dummies_gender=pd.get_dummies(all_data_p1['gender'])
 all_data_after_get_dummies_gender.reset_index()
 all_data_non_gender=all_data_p1.drop(["gender"], axis=1)
 all_data_o = pd.concat([all_data_after_get_dummies_gender, all_data_non_gender], axis=1)
 all_data_out=all_data_o.fillna(0)
 all_data_out.describe()
+#Targeting F1
 merge_data=all_data_out.rename(columns={"F1":"target"})
 
 #Separate test data from train data
@@ -50,7 +53,7 @@ def make_test_vol_train(merge_data):
     y = merge_data["target"].values
     columns_name = merge_data.drop("target",axis=1).columns
     def Test_data_and_training_data_split(df,X,Y):
-             N_train = int(len(df) * 0.86)
+             N_train = int(len(df) * 0.8)
              N_test = len(df) - N_train
              X_train, X_test, y_train, y_test = \
                 train_test_split(X, Y, test_size=N_test,shuffle=False,random_state=42)
@@ -71,7 +74,7 @@ def make_test_vol_train(merge_data):
     y = merge_data_p["target"].values
     columns_name = merge_data_p.drop("target",axis=1).columns
     def Test_data_and_training_data_split(df,X,Y):
-             N_train = int(len(df) * 0.80)
+             N_train = int(len(df) * 0.8)
              N_test = len(df) - N_train
              X_train, X_test, y_train, y_test = \
                 train_test_split(X, Y, test_size=N_test,random_state=42)
@@ -96,13 +99,16 @@ def make_test_vol_train(merge_data):
     marge_data_out=pd.concat([order_of_things, test_df])
     return marge_data_out
 
+#Pandas were created for 20% of the test data
 marge_data_out = make_test_vol_train(merge_data)
 #Save in CSV format
 marge_data_out.to_csv(r''+u.pass_o()+"Essay_output_data_first_F1_target.csv", encoding = 'shift-jis')
 #Read CSV
 with codecs.open(u.pass_o()+"Essay_output_data_first_F1_target.csv", "r", "Shift-JIS", "ignore") as file:
-    F1_target_data_pre = pd.read_table(file, delimiter=",")    
+    F1_target_data_pre = pd.read_table(file, delimiter=",")  
+#Remove Unnamed: 0, as it causes problems with machine learning.
 F1_target_data = F1_target_data_pre.drop(['Unnamed: 0'], axis=1)
+#If you convert the value of first_num, you can change the expected FIM item at discharge
 F1rename_target_data=F1_target_data.rename(columns={"target":"F1"})
 first_num="F1"
 y_variable=F1rename_target_data[first_num]
@@ -111,7 +117,8 @@ feature_value=F1rename_target_data.drop(['F1','F2', 'F3', 'F4', 'F5', 'F6', 'F7'
 y_x_variable_pre=pd.concat([y_variable, feature_value], axis=1)
 y_x_variable_date=y_x_variable_pre.rename(columns={first_num:"target",'女性':"woman",'男性':"man"})
 y_x_variable_non_b=y_x_variable_date.drop(["Admission Day"], axis=1)
-#5 or less and 6 or more to binarry data.
+
+#5 or less and 6 or more to binarry data
 df_b1=y_x_variable_non_b.astype('int')
 df_b1['flg']=df_b1['target'].where(df_b1['target'] > 5, 0)
 df_b2=df_b1
@@ -122,6 +129,7 @@ y_x_variable
 
 #Predicted by pycaret
 #Predict F1 at discharge as an objective variable
+#If you want to predict F2, convert the value of first_num to F2
 from pycaret.classification import *
-clf1 = setup(y_x_variable, target ='target',train_size = 0.86,data_split_shuffle=False,fold=10,silent=True,session_id=42)
+clf1 = setup(y_x_variable, target ='target',train_size = 0.8,data_split_shuffle=False,fold=10,silent=True,session_id=42)
 best_model = compare_models()
