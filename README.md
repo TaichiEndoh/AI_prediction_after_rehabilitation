@@ -1,5 +1,5 @@
 
-# FIM-AI-prediction-at-hospital.py
+# AI_prediction_after_rehabilitation.py
 
 "FIM-AI-prediction-at-hospital.py" is a python AI script for prediction of the requirement of FIM at hospital discharge with Data at the time of hospitalization.
 
