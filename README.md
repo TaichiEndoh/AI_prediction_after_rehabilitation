@@ -1,7 +1,7 @@
 
 # AI_prediction_after_rehabilitation.py
 
-"FIM-AI-prediction-at-hospital.py" is a python AI script for prediction of the requirement of FIM at hospital discharge with Data at the time of hospitalization.
+"AI_prediction_after_rehabilitation.py" is a python AI script for prediction of the requirement of FIM at hospital discharge with Data at the time of hospitalization.
 
 # Features
 
@@ -44,4 +44,4 @@ In this source code, we have made PyCaret work up to the point where it can perf
 
 
 # License
-"FIM_AI_Prediction.py" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
+"AI_prediction_after_rehabilitation.py" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
