@@ -40,7 +40,7 @@ In this source code, we have made PyCaret work up to the point where it can perf
 
 * Taichi Endoh
 * Tokeidai Memorial Hospital, Sapporo, Japan
-* Department of Radiation Biology, School of Veterinary Medicine, Rakuno Gakuen University, Ebetsu, 069-8501,Japan
+* Department of Radiation Biology, School of Veterinary Medicine, Rakuno Gakuen University, Japan
 * E-mail takkunn1155@gmail.com
 
 
